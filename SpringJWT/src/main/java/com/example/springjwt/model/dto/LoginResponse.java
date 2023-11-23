@@ -1,4 +1,4 @@
-package com.example.springjwt.model;
+package com.example.springjwt.model.dto;
 
 import lombok.Builder;
 import lombok.Getter;

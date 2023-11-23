@@ -8,6 +8,7 @@ public class UserPrincipalAuthenticationToken extends AbstractAuthenticationToke
     public UserPrincipalAuthenticationToken(UserPrincipal principal) {
         super(principal.getAuthorities());
         this.principal = principal;
+        setAuthenticated(true);
     }
 
     @Override

@@ -1,4 +1,4 @@
-package com.example.springjwt.model;
+package com.example.springjwt.model.dto;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -7,6 +7,6 @@ import lombok.Setter;
 @Getter
 @Builder
 public class LoginRequest {
-    private String email;
+    private String username;
     private String password;
 }
