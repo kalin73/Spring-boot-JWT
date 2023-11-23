@@ -2,7 +2,6 @@ package com.example.springjwt.security;
 
 import com.example.springjwt.service.CustomUserDetailsService;
 import lombok.RequiredArgsConstructor;
-import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -34,6 +33,7 @@ public class SecurityConfiguration {
                 .formLogin(FormLoginConfigurer::disable)
                 .authorizeHttpRequests(request -> request.requestMatchers("/").permitAll()
                         .requestMatchers("/auth/login").anonymous()
+                        .requestMatchers("/admin/**").hasRole("ADMIN")
                         .anyRequest().authenticated());
 
         return httpSecurity.build();
@@ -46,10 +46,11 @@ public class SecurityConfiguration {
 
     @Bean
     AuthenticationManager authenticationManager(HttpSecurity httpSecurity, CustomUserDetailsService customUserDetailsService) throws Exception {
-        return httpSecurity.getSharedObject(AuthenticationManagerBuilder.class)
-                .userDetailsService(customUserDetailsService)
-                .passwordEncoder(passwordEncoder())
-                .and().build();
+        var builder = httpSecurity.getSharedObject(AuthenticationManagerBuilder.class);
+
+        builder.userDetailsService(customUserDetailsService).passwordEncoder(passwordEncoder());
+
+        return builder.build();
 
     }
 }

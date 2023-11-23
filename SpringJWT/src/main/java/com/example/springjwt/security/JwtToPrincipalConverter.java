@@ -10,14 +10,14 @@ import java.util.List;
 public class JwtToPrincipalConverter {
     public UserPrincipal convert(DecodedJWT jwt) {
         return UserPrincipal.builder()
-                .userId(Long.valueOf(jwt.getSubject()))
-                .username(jwt.getClaim("e").asString())
+                .userId(Long.parseLong(jwt.getSubject()))
+                .username(jwt.getClaim("u").asString())
                 .authorities(extractAuthoritiesFromClaim(jwt))
                 .build();
     }
 
     private List<SimpleGrantedAuthority> extractAuthoritiesFromClaim(DecodedJWT jwt) {
-        var claim = jwt.getClaim("a");
+        var claim = jwt.getClaim("au");
 
         if (claim.isNull() || claim.isMissing()) return List.of();
 

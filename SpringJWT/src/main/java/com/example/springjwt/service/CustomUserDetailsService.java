@@ -1,5 +1,6 @@
 package com.example.springjwt.service;
 
+import com.example.springjwt.model.entity.UserEntity;
 import com.example.springjwt.security.UserPrincipal;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -17,13 +18,13 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        var user = userService.findByUsername(username)
+        UserEntity user = userService.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User was not found!"));
 
         return UserPrincipal.builder()
                 .userId(user.getId())
                 .username(user.getUsername())
-                .authorities(List.of(new SimpleGrantedAuthority(user.getRole().getRole().name())))
+                .authorities(List.of(new SimpleGrantedAuthority("ROLE_" + user.getRole().getRole().name())))
                 .password(user.getPassword())
                 .build();
     }

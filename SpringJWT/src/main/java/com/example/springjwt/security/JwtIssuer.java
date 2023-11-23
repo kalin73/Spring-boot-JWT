@@ -14,12 +14,16 @@ import java.util.List;
 @RequiredArgsConstructor
 public class JwtIssuer {
     private final JwtProperties properties;
-    public String issue(long userId, String email, List<String> roles) {
+
+    public String issue(long userId, String username, List<String> roles) {
+        Instant now = Instant.now();
+
         return JWT.create()
                 .withSubject(String.valueOf(userId))
-                .withExpiresAt(Instant.now().plus(Duration.of(1, ChronoUnit.MINUTES)))
-                .withClaim("e", email)
-                .withClaim("a", roles)
+                .withIssuedAt(now)
+                .withExpiresAt(now.plus(Duration.of(5, ChronoUnit.MINUTES)))
+                .withClaim("u", username)
+                .withClaim("au", roles)
                 .sign(Algorithm.HMAC256(properties.getSecretKey()));
     }
 }
