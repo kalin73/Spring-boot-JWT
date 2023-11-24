@@ -24,21 +24,4 @@ public class AuthController {
         return this.authService.login(loginRequest.getUsername(), loginRequest.getPassword());
     }
 
-    @GetMapping("/secured")
-    public String secured(@AuthenticationPrincipal UserPrincipal principal) {
-        return "User ID: " + principal.getUserId() + "\nUsername: " + principal.getUsername() + "\nRole: " + getAuthority(principal);
-    }
-
-    @GetMapping("/admin")
-    public String admin(@AuthenticationPrincipal UserPrincipal principal) {
-        return "Hello admin: " + principal.getUsername() + "\nRole: " + getAuthority(principal);
-    }
-
-    private String getAuthority(UserPrincipal principal) {
-        return principal.getAuthorities()
-                .stream()
-                .filter(x -> x.getAuthority().contains("USER") || x.getAuthority().contains("ADMIN"))
-                .map(GrantedAuthority::getAuthority)
-                .collect(Collectors.joining(""));
-    }
 }
