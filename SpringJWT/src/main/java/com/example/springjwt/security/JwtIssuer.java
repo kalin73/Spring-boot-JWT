@@ -3,6 +3,7 @@ package com.example.springjwt.security;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.time.Duration;
@@ -13,7 +14,8 @@ import java.util.List;
 @Component
 @RequiredArgsConstructor
 public class JwtIssuer {
-    private final JwtProperties properties;
+    @Value("${security.jwt.secret-key}")
+    private String secretKey;
 
     public String issue(long userId, String username, List<String> roles) {
         Instant now = Instant.now();
@@ -24,6 +26,6 @@ public class JwtIssuer {
                 .withExpiresAt(now.plus(Duration.of(5, ChronoUnit.MINUTES)))
                 .withClaim("u", username)
                 .withClaim("au", roles)
-                .sign(Algorithm.HMAC256(properties.getSecretKey()));
+                .sign(Algorithm.HMAC256(secretKey));
     }
 }
