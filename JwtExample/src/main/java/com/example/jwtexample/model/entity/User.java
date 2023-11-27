@@ -1,5 +1,6 @@
-package com.example.jwtexample.user;
+package com.example.jwtexample.model.entity;
 
+import com.example.jwtexample.model.enums.Role;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;

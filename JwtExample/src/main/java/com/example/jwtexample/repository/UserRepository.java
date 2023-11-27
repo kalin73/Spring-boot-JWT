@@ -1,6 +1,6 @@
 package com.example.jwtexample.repository;
 
-import com.example.jwtexample.user.User;
+import com.example.jwtexample.model.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
