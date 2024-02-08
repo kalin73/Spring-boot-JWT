@@ -49,9 +49,4 @@ public class SecurityConfig {
 
         return authenticationProvider;
     }
-
-    @Bean
-    AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
-        return config.getAuthenticationManager();
-    }
 }
