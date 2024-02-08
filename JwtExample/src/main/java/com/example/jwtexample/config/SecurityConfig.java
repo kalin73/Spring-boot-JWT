@@ -1,5 +1,6 @@
 package com.example.jwtexample.config;
 
+import com.example.jwtexample.model.enums.Role;
 import com.example.jwtexample.service.AppUserDetailsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -27,7 +28,7 @@ public class SecurityConfig {
 
         httpSecurity.csrf(CsrfConfigurer::disable)
                 .authorizeHttpRequests(request -> request.requestMatchers("/api/auth/**").permitAll()
-                        .anyRequest().authenticated())
+                        .requestMatchers("/api/demo").hasRole(Role.USER.name()))
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
