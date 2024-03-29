@@ -7,7 +7,6 @@ import com.example.jwtexample.model.entity.User;
 import com.example.jwtexample.model.enums.Role;
 import com.example.jwtexample.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
